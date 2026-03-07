@@ -35,16 +35,10 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    min-height: 250px;
 }
 
 .profile-image {
-    text-align: center;
+    text-align: left;
     padding: 24px;
     flex: 0 1 auto;
 }
@@ -52,13 +46,13 @@ body {
 .profile-image img {
     width: 200px;
     height: auto;
-    border: 6px solid;
+    border: 0px solid;
     border-radius: 50%;
 }
 
 .profile-info {
     margin-top: 20px;
-    font-family: fantasy;
+    /* font-family: fantasy; */
 }
 
 .profile-info b {
