@@ -1,29 +1,29 @@
-/* General Styles */
+/* Page background & base font */
 body, html {
     margin: 0;
     padding: 0;
     font-family: Inter, sans-serif;
-}
-
-body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background: linear-gradient(to right, lavenderblush, lavender);
 }
 
-/* Shloka/Sanskrit Text Container */
+/* Shloka / Sanskrit container — follow original exactly */
 .shloka-container {
     font-family: 'Tiro Devanagari Sanskrit', serif;
     font-size: 20px;
-    color: #2c3e50;
+    color: #2c3e50; /* Deep scholarly blue-grey */
     text-align: center;
-    padding: 20px;
-    white-space: nowrap;
+    padding: 20px;              /* restored original padding */
+    white-space: nowrap;        /* Forces one line (horizontal scroll if needed) */
     overflow-x: auto;
     border-bottom: 1px solid #e0e0e0;
     letter-spacing: 0.5px;
 }
 
+/* separator styling used inside the shloka */
 .separator {
-    color: #b33939;
+    color: #b33939; /* Traditional vermillion/dark red */
     margin: 0 15px;
     font-weight: bold;
 }
@@ -35,39 +35,54 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
 }
 
+/* Profile image block */
 .profile-image {
     text-align: left;
-    padding: 24px;
+    padding: 24px; /* restored original */
     flex: 0 1 auto;
 }
 
 .profile-image img {
-    width: 200px;
+    width: 200px; /* original */
     height: auto;
-    border: 0px solid;
+    border: 6px;  /* original used border:6px (no color), keep minimal */
     border-radius: 50%;
 }
 
+/* Profile info */
 .profile-info {
     margin-top: 20px;
-    /* font-family: fantasy; */
 }
 
-.profile-info b {
-    font-family: cursive;
-    font-size: large;
-    color: palegoldenrod;
+.name-english {
+    color: aqua;
+    font-size: larger;
 }
 
-.profile-info i {
+.name-devanagari {
+    color: #50C878;
+    font-size: 18px;
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    display: inline-block;
+    margin-top: 6px;
+}
+
+.role {
+    font-family: 'Courier New', Courier, monospace;
+    color: yellow;
     display: block;
-    margin-top: 10px;
+    margin-top: 6px;
 }
 
 .profile-info a {
-    color: palegoldenrod;
+    color: palegoldenrodyellow;
     text-decoration: none;
 }
 
@@ -75,19 +90,28 @@ body {
     text-decoration: underline;
 }
 
-/* Container Styles */
+/* Container common layout (keeps original padding & margin conventions) */
 .container {
     margin-left: auto;
     margin-right: auto;
-    padding: 15px;
+    padding: 15px; /* consistent with original */
     max-width: 100%;
     word-wrap: break-word;
 }
 
+/* Tagline small tweaks */
+.tagline {
+    margin-top: 9px;
+    text-align: center;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+/* Current status card (use original proportions) */
 #current_status {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 80%;                 /* original was 80% */
     max-width: 600px;
     justify-content: center;
     align-items: center;
@@ -99,16 +123,13 @@ body {
     margin: 9px auto;
 }
 
-#previous_btech {
-    padding: 20px;
-    align-items: center;
-}
-
+/* Details container margins restored */
 #details {
-    margin: 10px;
+    margin: 15px;
     padding: 0 5px;
 }
 
+/* link styles */
 .link a {
     color: lightgoldenrodyellow;
     font-weight: 500;
@@ -116,15 +137,17 @@ body {
     word-break: break-word;
 }
 
+/* Outer layout for columns (restore original gaps & padding) */
 .outer_contain {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 15px;
-    padding: 15px;
+    gap: 20px;      /* restored original gap */
+    padding: 20px;  /* restored original padding */
     max-width: 100%;
 }
 
+/* helper block used earlier in original */
 .outer_contain1 {
     display: flex;
     align-items: center;
@@ -134,26 +157,25 @@ body {
     padding: 6px;
 }
 
+/* Card-like containers */
 .container1 {
     flex: 1;
-    min-width: 280px;
+    min-width: 300px;   /* original min */
     max-width: 600px;
     background: rgba(255, 255, 255, 0.85);
-    padding: 15px;
+    padding: 20px;      /* restored original padding */
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .container1 h2 {
     margin-top: 0;
-    margin-bottom: 15px;
     color: #2c3e50;
     font-size: 1.5em;
 }
 
 .container1 h3 {
     margin-top: 0;
-    margin-bottom: 15px;
     color: #2c3e50;
     font-size: 1.3em;
 }
@@ -164,12 +186,12 @@ body {
     font-size: 0.95em;
 }
 
-/* Table Styles */
+/* Table Styles (publication lists / TA tables) */
 .borderless-table {
     border-collapse: collapse;
     width: 100%;
     align-self: center;
-    font-size: 0.9em;
+    font-size: 0.95em;
 }
 
 .borderless-table td {
@@ -178,12 +200,13 @@ body {
     word-break: break-word;
 }
 
+/* Authors formatting */
 .authors {
     font-style: italic;
     font-weight: 600;
 }
 
-/* Publication Abstract Styles */
+/* Abstract toggle area */
 .abstract {
     display: none;
     margin-top: 8px;
@@ -205,19 +228,20 @@ body {
     text-decoration: underline;
 }
 
+/* LI spacing */
 li {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     line-height: 1.5;
 }
 
-/* Footer/Thank You */
+/* Footer / Thanks text */
 .thank-you-text {
     text-align: center;
     font-style: italic;
     margin: 10px;
 }
 
-/* Sanskrit Text Styling */
+/* Sanskrit Text block (fallback multi-line) */
 .sanskrit-text {
     font-family: 'Tiro Devanagari Sanskrit', serif;
     font-size: 18px;
@@ -229,13 +253,11 @@ li {
     hyphens: auto;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
+/* ===== RESPONSIVE DESIGN (preserve original breakpoints & sizes) ===== */
 
 /* Tablets and Medium Screens */
 @media (max-width: 768px) {
-    body {
-        font-size: 15px;
-    }
+    body { font-size: 15px; }
 
     #start_intro {
         flex-direction: column;
@@ -245,14 +267,12 @@ li {
         gap: 10px;
     }
 
-    #start_intro > div:last-child {
+    #start_intro > .profile-info {
         margin: 0 !important;
         padding: 15px !important;
     }
 
-    .profile-image {
-        padding: 15px;
-    }
+    .profile-image { padding: 15px; }
 
     .profile-image img {
         width: 150px;
@@ -260,9 +280,7 @@ li {
         border: 4px solid;
     }
 
-    .container {
-        padding: 10px;
-    }
+    .container { padding: 10px; }
 
     .container1 {
         min-width: 260px;
@@ -287,9 +305,7 @@ li {
 
 /* Small Phones (max-width: 480px) */
 @media (max-width: 480px) {
-    body {
-        font-size: 14px;
-    }
+    body { font-size: 14px; }
 
     #start_intro {
         flex-direction: column;
@@ -298,22 +314,20 @@ li {
         min-height: auto;
     }
 
-    #start_intro > div:last-child {
+    #start_intro > .profile-info {
         margin: 0 !important;
         padding: 10px !important;
     }
 
-    #start_intro > div:last-child > div > b:first-of-type {
+    #start_intro > .profile-info > div > b.name-english {
         font-size: 1.2em !important;
     }
 
-    #start_intro > div:last-child > div > b:nth-of-type(2) {
+    #start_intro > .profile-info > div > b.name-devanagari {
         font-size: 14px !important;
     }
 
-    .profile-image {
-        padding: 10px;
-    }
+    .profile-image { padding: 10px; }
 
     .profile-image img {
         width: 120px;
@@ -321,10 +335,7 @@ li {
         border: 3px solid;
     }
 
-    .container {
-        padding: 8px;
-        margin-top: 5px !important;
-    }
+    .container { padding: 8px; margin-top: 5px !important; }
 
     .container1 {
         min-width: 250px;
@@ -333,20 +344,10 @@ li {
         margin: 5px;
     }
 
-    .container1 h2 {
-        font-size: 1.3em;
-        margin-bottom: 10px;
-    }
+    .container1 h2 { font-size: 1.3em; margin-bottom: 10px; }
+    .container1 h3 { font-size: 1.15em; margin-bottom: 10px; }
 
-    .container1 h3 {
-        font-size: 1.15em;
-        margin-bottom: 10px;
-    }
-
-    .container1 p {
-        margin: 8px 0;
-        font-size: 0.9em;
-    }
+    .container1 p { margin: 8px 0; font-size: 0.9em; }
 
     .outer_contain {
         gap: 10px;
@@ -354,10 +355,7 @@ li {
         flex-direction: column;
     }
 
-    .outer_contain > .container1 {
-        width: 100%;
-        min-width: unset;
-    }
+    .outer_contain > .container1 { width: 100%; min-width: unset; }
 
     .sanskrit-text {
         font-size: 14px;
@@ -365,61 +363,29 @@ li {
         white-space: pre-wrap;
     }
 
-    .borderless-table {
-        font-size: 0.8em;
-    }
+    .borderless-table { font-size: 0.8em; }
+    .borderless-table td { padding: 4px 0; font-size: 0.8em; }
 
-    .borderless-table td {
-        padding: 4px 0;
-        font-size: 0.8em;
-    }
+    .link a { display: block; margin: 5px 0; }
 
-    .link a {
-        display: block;
-        margin: 5px 0;
-    }
+    li { margin-bottom: 12px; font-size: 0.9em; }
 
-    li {
-        margin-bottom: 12px;
-        font-size: 0.9em;
-    }
+    #details { margin: 5px; padding: 0; }
 
-    #details {
-        margin: 5px;
-        padding: 0;
-    }
+    .thank-you-text { margin: 8px; }
 
-    .thank-you-text {
-        margin: 8px;
-    }
-
-    i {
-        font-size: 0.9em;
-    }
+    i { font-size: 0.9em; }
 }
 
 /* Extra Small Phones (max-width: 375px) */
 @media (max-width: 375px) {
-    body {
-        font-size: 13px;
-    }
+    body { font-size: 13px; }
 
-    .profile-image img {
-        width: 100px;
-        height: auto;
-    }
+    .profile-image img { width: 100px; height: auto; }
 
-    .container1 {
-        padding: 8px;
-        min-width: 240px;
-    }
+    .container1 { padding: 8px; min-width: 240px; }
 
-    .container1 h2 {
-        font-size: 1.2em;
-    }
+    .container1 h2 { font-size: 1.2em; }
 
-    .sanskrit-text {
-        font-size: 12px;
-    }
+    .sanskrit-text { font-size: 12px; }
 }
-
