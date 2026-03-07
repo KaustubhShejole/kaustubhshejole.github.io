@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>In Memory of Prof. Pushpak Bhattacharyya</title>
+
+  <!-- Gentle, readable fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f6f7f9;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#1f2937;
+      --accent-soft:#0f1724;
+      --shadow: 0 6px 24px rgba(15,23,36,0.08);
+      --radius:14px;
+      --max-width:1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #eef2f6 0%, var(--bg) 100%);
+      color:var(--accent-soft);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:40px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--max-width);
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(15,23,36,0.04);
+    }
+
+    header.hero{
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:24px;
+      padding:28px;
+      background:
+        radial-gradient(1200px 300px at 5% 10%, rgba(99,102,241,0.06), transparent 15%),
+        linear-gradient(180deg, rgba(99,102,241,0.02), transparent 40%);
+    }
+
+    .portrait{
+      flex:0 0 160px;
+      height:160px;
+      border-radius:12px;
+      overflow:hidden;
+      background:linear-gradient(180deg,#e6eefc,#f6f8ff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 8px 30px rgba(16,24,40,0.06);
+      border:1px solid rgba(15,23,36,0.04);
+    }
+
+    .portrait img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .hero-text{
+      flex:1;
+      min-width:0;
+    }
+
+    .hero-text h1{
+      margin:0 0 6px 0;
+      font-family: "Crimson Pro", Georgia, "Times New Roman", serif;
+      font-weight:600;
+      font-size:20px;
+      color:var(--accent);
+    }
+
+    .hero-text p.lead{
+      margin:0;
+      font-size:13.75px;
+      color:var(--muted);
+    }
+
+    main.content{
+      padding:28px;
+      display:grid;
+      gap:22px;
+      grid-template-columns:1fr;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:6px;
+    }
+
+    .section-title h2{
+      margin:0;
+      font-size:16px;
+      font-weight:600;
+      color:var(--accent);
+      font-family: "Crimson Pro", serif;
+    }
+
+    .thoughts{
+      background:linear-gradient(180deg, rgba(243,244,246,0.6), rgba(255,255,255,0));
+      padding:18px;
+      border-radius:10px;
+      border:1px solid rgba(15,23,36,0.03);
+      color:var(--accent-soft);
+      font-size:15px;
+    }
+
+    /* Poem styling */
+    .poem{
+      border-radius:10px;
+      padding:20px;
+      background:linear-gradient(180deg,#ffffff, #fbfdff);
+      border:1px solid rgba(15,23,36,0.03);
+      box-shadow: 0 6px 18px rgba(16,24,40,0.02);
+    }
+
+    .poem .meta{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:12px;
+    }
+
+    .stanza{
+      padding:14px;
+      border-left:4px solid rgba(99,102,241,0.12);
+      margin-bottom:14px;
+      background:linear-gradient(90deg, rgba(99,102,241,0.02), transparent);
+      border-radius:8px;
+    }
+
+    .stanza .num{
+      font-weight:600;
+      font-family: "Crimson Pro", serif;
+      color:rgba(15,23,36,0.9);
+      font-size:14px;
+      margin-bottom:6px;
+    }
+
+    .lines{
+      display:grid;
+      gap:6px;
+      font-size:15px;
+    }
+
+    .devanagari{
+      font-family: "Noto Serif Devanagari", "Mangal", "Devanagari MT", serif;
+      font-size:18px;
+      letter-spacing:0.4px;
+      color:var(--accent);
+    }
+
+    .translit{
+      font-family: "Crimson Pro", serif;
+      font-style:italic;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .eng{
+      color:var(--accent-soft);
+      font-size:15px;
+    }
+
+    .marathi{
+      color:var(--muted);
+      font-size:14px;
+      font-style:normal;
+    }
+
+    footer.note{
+      padding:20px 28px;
+      border-top:1px dashed rgba(15,23,36,0.04);
+      font-size:13px;
+      color:var(--muted);
+      background:linear-gradient(180deg, transparent, rgba(247,248,250,0.6));
+    }
+
+    /* Responsive */
+    @media (max-width:640px){
+      header.hero{flex-direction:column; align-items:flex-start; gap:18px;}
+      .portrait{width:120px;height:120px}
+      body{padding:20px}
+    }
+
+    /* Print friendly */
+    @media print{
+      body{background:white;padding:0}
+      .card{box-shadow:none;border:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="article" aria-labelledby="title">
+    <header class="hero">
+      <figure class="portrait" aria-hidden="false">
+        <img src="images/pushpak_sir.jpg" alt="Prof. Pushpak Bhattacharyya" />
+      </figure>
+
+      <div class="hero-text">
+        <h1 id="title">In Memory of Prof. Pushpak Bhattacharyya</h1>
+        <p class="lead">A tribute to a scholar, teacher, guide — and a shining human being.</p>
+      </div>
+    </header>
+
+    <main class="content">
+      <section aria-labelledby="thoughts-heading">
+        <div class="section-title">
+          <h2 id="thoughts-heading">My thoughts</h2>
+        </div>
+
+        <div class="thoughts">
+          <p>
+            I consider myself truly proud and fortunate to have been guided by him. My journey in NLP began because of him only.
+            Owing to his vision, guidance, and teachings, I had my first research paper accepted at EMNLP.
+            His greatness is far beyond words, and I feel too small to fully express what he meant to me.
+          </p>
+        </div>
+      </section>
+
+	<section aria-labelledby="tribute-heading"> 
+  <div class="section-title">
+    <h2 id="tribute-heading">In memory — a poem written by me</h2>
+  </div>
+
+  <div class="poem" role="region" aria-label="Poem: Shradhhanjali">
+    <div class="meta"> In memory of Pushpak Sir — <strong> 
+		गुरुर्ब्रह्मा गुरुर्विष्णुः गुरुर्देवो महेश्वरः।
+गुरुः साक्षात् परब्रह्म तस्मै श्रीगुरवे नमः॥
+
+		
+		</strong></div>
+
+    <div class="stanza">
+      <div class="num">1</div>
+      <div class="lines">
+        <div class="devanagari">मैं छोटा सा बालक था, आपने मुझे चलना सिखाया।</div>
+        <div class="eng">I was but a small child; you taught me how to walk.</div>
+
+        <div class="devanagari">मैं तो अंधेरों में भटका करता था, आपने आपके ज्ञान प्रकाश से मुझे सफलता का मार्ग दिखलाया।</div>
+        <div class="eng">I was wandering lost in the darkness; with the light of your wisdom, you showed me the path to success.</div>
+
+        <div class="devanagari">मैं तो बेमोल माटी था, आपने न जाने कैसे मुझसे इतना अद्भुत घड़ा बनाया।</div>
+        <div class="eng">I was merely worthless clay; I know not how you molded me into such a magnificent vessel.</div>
+
+        <div class="devanagari">मैं तो एक मुरझाई हुई कली था, आपने आपकी दिव्यता से मुझे खिलाया, मेरा सुंदर फूल बनाया।</div>
+        <div class="eng">I was but a withered bud; with your divinity, you made me bloom into a beautiful flower.</div>
+
+        <div class="devanagari">हे जगद्गुरु, आपका शिष्य बन मैंने मेरे विद्यार्थी जीवन को सफल बनाया।</div>
+        <div class="eng">O Great Teacher, by becoming your disciple, I have made my life as a student successful.</div>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="num">2</div>
+      <div class="lines">
+        <div class="devanagari">गुरु ब्रह्मा, विष्णु, महेश के समान होते हैं, यह मैंने मन्त्रों में सुना था।</div>
+        <div class="eng">I had heard in the ancient chants that a Teacher is equal to the Trinity—Brahma, Vishnu, and Mahesh.</div>
+
+        <div class="devanagari">आपका शिष्य बन यह जाना के असल में ऊँचा गुरु का स्थान इन सबसे कई गुना था।</div>
+        <div class="eng">By becoming your student, I realized that in reality, the Teacher's place is many times higher than all of them.</div>
+
+        <div class="devanagari">देवों ने सृष्टि को बनाया, संभाला और संहार किया, गुरु ने सदैव एक माँ की भाँति अपने शिष्यों से प्यार दुलार किया।</div>
+        <div class="eng">The Gods created, preserved, and destroyed the universe; but the Teacher, like a mother, always showered their disciples with love and affection.</div>
+
+        <div class="devanagari">गलतियां हुई जब हमसे, कभी-कभी तो प्रेमवश हमें डांट फटकार दिया।</div>
+        <div class="eng">When we made mistakes, sometimes out of pure love, you scolded and corrected us.</div>
+
+        <div class="devanagari">वो श्रेष्ठता है सिर्फ गुरु की जिन्होंने खुद का जीवन हम जैसे दीनों पर वार दिया।</div>
+        <div class="eng">Such is the greatness of a Teacher, who sacrificed their own life for the sake of the humble ones like us.</div>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="num">3</div>
+      <div class="lines">
+        <div class="devanagari">एक छोटी सी विनती है कि कोई कभी भी ये न कहे, कि सर इस दुनिया में नहीं रहे।</div>
+        <div class="eng">I have one small request: let no one ever say that Sir is no longer in this world.</div>
+
+        <div class="devanagari">पुष्पक सर तो वो पावन गंगोत्री हैं जिनसे निरंतर परम पावनी ज्ञान और कर्मयोग के सिद्धांतों की गंगा बहे।</div>
+        <div class="eng">Pushpak Sir is that sacred source (Gangotri) from which the holy Ganges of knowledge and the principles of duty flows eternally.</div>
+
+        <div class="devanagari">जीवित हैं वे हमारे दिलों की गहरी यादों में, वही मनमोहक सी दिव्यता भरी मुस्कान अधरों पर लिए।</div>
+        <div class="eng">He lives on in the deep memories of our hearts, carrying that same enchanting and divine smile upon his lips.</div>
+
+        <div class="devanagari">जीवित रहेंगे वे निरंतर उनके साथ बिताए हुए उन पलों की यादों में।</div>
+        <div class="eng">He will live forever in the memories of the moments we spent together.</div>
+
+        <div class="devanagari">महसूस करता हूँ आज भी उन्हें मैं जब होता हूँ उदास बैठा हुआ तन्हाई में।</div>
+        <div class="eng">I feel his presence even today when I sit alone in sadness.</div>
+
+        <div class="devanagari">निरंतर जीवित रहेंगे वे संगणक विज्ञान की पढ़ाई में।</div>
+        <div class="eng">He will live on eternally through the study of Computer Science.</div>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="num">4</div>
+      <div class="lines">
+        <div class="devanagari">पारस तो छूकर सोना बनाता है, ऐसा सुना था मैंने कहीं से।</div>
+        <div class="eng">I had heard somewhere that the mythical 'Paras' stone turns whatever it touches into gold.</div>
+
+        <div class="devanagari">आपने तो न जाने कितनी जिंदगियों के पास से गुज़र उन्हें हीरा बनाया।</div>
+        <div class="eng">But you passed through so many lives and transformed them into diamonds.</div>
+
+        <div class="devanagari">जिन्होंने उनके भौतिक जीवन के अंतिम श्वास तक, एक शिक्षक का, एक गुरु का फर्ज़ निभाया।</div>
+        <div class="eng">To the one who, until the final breath of his physical life, fulfilled the duty of a Teacher and a Mentor.</div>
+
+        <div class="devanagari">जिनकी भव्यता और असीमित ज्ञान को देख विश्व ने उनकी शरण में शीश नवाया।</div>
+        <div class="eng">Witnessing his grandeur and limitless knowledge, the world bowed its head at his feet.</div>
+
+        <div class="devanagari">आज उन्हीं के सच्चिदानंद स्वरूप को याद कर, आज उनके परम पावन चरणकमलों का स्मरण कर।</div>
+        <div class="eng">Today, remembering his eternal blissful form, and recalling his most holy lotus feet.</div>
+
+        <div class="devanagari">मैंने उनके लिए मेरे ह्रदय से ये गान गाया।</div>
+        <div class="eng">I have sung this song for him from the depths of my heart.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <section aria-labelledby="poem-heading">
+        <div class="section-title">
+          <h2 id="poem-heading">In memory — a poem by Malhar Sir</h2>
+        </div>
+
+        <div class="poem" role="region" aria-label="Poem: Puṣpakasmaraṇam">
+          <div class="meta">In memory of Professor Pushpak Bhattacharyya — <strong>॥ पुष्पकस्मरणम् ॥ ॥ Puṣpakasmaraṇam ॥</strong></div>
+
+          <!-- Stanza 1 -->
+          <div class="stanza">
+            <div class="num">1</div>
+            <div class="lines">
+              <div class="devanagari">नमः संगणकज्ञाय वरेण्याय विदाविदे । भट्टाचार्यकुलार्काय पुष्पकाय नमो नमः ॥</div>
+              <div class="translit">namaḥ saṁgaṇakājñāya vareṇyāya vidāvide | bhaṭṭācāryakulārkāya puṣpakāya namo namaḥ ||</div>
+              <div class="eng"><strong>English:</strong> Salutations to an eminent Computer Scientist and Data Scientist! Salutations to पुष्पक Puṣpaka again and again, the Sun of the family of भट्टाचार्यs Bhaṭṭācārya’s.</div>
+              <div class="marathi"><strong>Marathi:</strong> श्रेष्ठ संगणकशास्त्रज्ञ आणि विदाशास्त्रज्ञाला नमन. तसेच भट्टाचार्यकुळाचा सूर्य असलेल्या पुष्पकसरांना पुन्हा पुन्हा नमस्कार.</div>
+            </div>
+          </div>
+
+          <!-- Stanza 2 -->
+          <div class="stanza">
+            <div class="num">2</div>
+            <div class="lines">
+              <div class="devanagari">नमः श्रेष्ठाय विदुषे भाषाशास्त्रविदे सदा । नरोत्तमाय धन्याय पुष्पकाय नमो नमः ॥</div>
+              <div class="translit">namaḥ śreṣṭhāya viduṣe bhāṣāśāstravide sadā | narottamāya dhanyāya puṣpakāya namo namaḥ ||</div>
+              <div class="eng"><strong>English:</strong> Salutations always , to one of the greatest scholars, the connoisseur of the science of Linguistics! Salutations to पुष्पक Puṣpaka again and again, to an equally great human being who lived his life full.</div>
+              <div class="marathi"><strong>Marathi:</strong> श्रेष्ठ विद्वान् आणि भाषाविज्ञानाच्या उत्तम जाणकाराला नमन. याबरोबरच माणूस म्हणूनही उत्तम असलेल्या आणि पूर्ण आयुष्य जगलेल्या पुष्पकसरांना पुन्हा पुन्हा नमस्कार.</div>
+            </div>
+          </div>
+
+          <!-- Stanza 3 -->
+          <div class="stanza">
+            <div class="num">3</div>
+            <div class="lines">
+              <div class="devanagari">भो आचार्य सुखं गच्छ सद्गतिं परमां शुभाम् । तिष्ठसि त्वं सदास्माकं भावे चित्ते शुभस्मृते ॥</div>
+              <div class="translit">bho ācārya sukhaṁ gaccha sadgatiṁ paramāṁ śubhām | tiṣṭhasi tvaṁ sadāsmākaṁ bhāve citte śubhasmṛte ||</div>
+              <div class="eng"><strong>English:</strong> Oh Teacher! pray, lead happily to the auspicious and greatest noble path. You remain in our mind and heart, full of fond memories.</div>
+              <div class="marathi"><strong>Marathi:</strong> अहो आचार्य, सुखाने आपण आपल्या श्रेष्ठ आणि शुभ, उत्तम गतीस पावा. आपल्या मंगल स्मृतींनी आमच्या हृदयामध्ये आणि मनामध्ये तुम्ही सदैव राहाल.</div>
+            </div>
+          </div>
+
+          <!-- Stanza 4 -->
+          <div class="stanza">
+            <div class="num">4</div>
+            <div class="lines">
+              <div class="devanagari">त्यक्त्वास्मान् भूतले सर्वान् अत्र ते शुभचिन्तकान् । गतः कुत्र महामित्र जगन्मित्र शुभङ्कर ॥</div>
+              <div class="translit">tyaktvāsmān bhūtale sarvān atra te śubhacintakān | gataḥ kutra mahāmitra jaganmitra śubhaṅkara ||</div>
+              <div class="eng"><strong>English:</strong> Oh Great friend, the friend of the world, habitual of making good to others! where have you gone, leaving here on this planet earth, us, your well-wishers?</div>
+              <div class="marathi"><strong>Marathi:</strong> सच्चे मित्र असलेल्या, संपूर्ण जगाचे मित्र असलेल्या आणि सदैव लोकांचे भले करत असलेल्या, हे आचार्य, ह्या भूतलावर, आपल्या, ह्या आमच्यासारख्या हितचिंतकांना सोडून, आपण कुठेबरे निघून गेलात ?</div>
+            </div>
+          </div>
+
+          <!-- Stanza 5 -->
+          <div class="stanza">
+            <div class="num">5</div>
+            <div class="lines">
+              <div class="devanagari">संभाभिधस्य शास्त्रस्य भारते प्रेरकाय वै । पितामहाय दिव्याय पुष्पकाय नमो नमः ॥</div>
+              <div class="translit">saṁbhābhidhasya śāstrasya bhārate prerekāya vai | pitāmahāya divyāya puṣpakāya namo namaḥ ||</div>
+              <div class="eng"><strong>English:</strong> Salutations to पुष्पक Puṣpaka again and again, who is the propeller and the Godly grandfather of the science called Computational Linguistics in India.</div>
+              <div class="marathi"><strong>Marathi:</strong> भारतामध्ये, संगणकीय भाषाविज्ञान ह्या शास्त्राचे प्रेरणास्थान आणि खरं तर दिव्य पितामहच असलेल्या पुष्पकसरांना पुन्हा पुन्हा नमस्कार.</div>
+            </div>
+          </div>
+
+          <!-- Stanza 6 -->
+          <div class="stanza">
+            <div class="num">6</div>
+            <div class="lines">
+              <div class="devanagari">श्लिष्टक्रियायाः स्वस्थायाः संक्रान्तेश्चैव शिक्षणे । संगमाय च पुण्याय पुष्पकाय नमो नमः ॥</div>
+              <div class="translit">śliṣṭakriyāyāḥ svasthāyāḥ saṁkrānteścaiva śikṣaṇe | saṁgamāya ca puṇyāya puṣpakāya namo namaḥ ||</div>
+              <div class="eng"><strong>English:</strong> Salutations to पुष्पक Puṣpaka again and again, the meritorious confluence of both in the domain of teaching, namely, of the competence generated by high quality of training and of the equally high quality of transmission.</div>
+              <div class="marathi"><strong>Marathi:</strong> शिक्षणक्षेत्रामध्ये, स्वतःच्या ठिकाणी असलेली उच्च कोटीची गुणवत्ता आणि तितकीच उच्च कोटीची शिकविण्याची हातोटी, ह्यांचा संगम असलेल्या, पुष्पकसरांना पुन्हा पुन्हा नमस्कार.</div>
+            </div>
+          </div>
+
+          <!-- Stanza 7 -->
+          <div class="stanza">
+            <div class="num">7</div>
+            <div class="lines">
+              <div class="devanagari">धुरन्धराय संगीतकलाशास्त्रोभयस्य वै । नम्राय ज्ञानरूपाय पुष्पकाय नमो नमः ॥</div>
+              <div class="translit">dhurandharāya saṁgītakalāśāstrobhayasya vai | namrāya jñānarūpāya puṣpakāya namo namaḥ ||</div>
+              <div class="eng"><strong>English:</strong> Salutations to पुष्पक Puṣpaka again and again, the stalwart, in both the knowledge and art of singing and a humble human being and one who remained in the form of Knowledge.</div>
+              <div class="marathi"><strong>Marathi:</strong> संगीताच्या, शास्त्र आणि कला, ह्या दोन्हींमध्ये निष्णात असलेल्या, स्वभावाने नम्र आणि स्वतः ज्ञानरूप असलेल्या, पुष्पकसरांना पुन्हा पुन्हा नमस्कार.</div>
+            </div>
+          </div>
+
+          <!-- Stanza 8 -->
+          <div class="stanza">
+            <div class="num">8</div>
+            <div class="lines">
+              <div class="devanagari">पुष्पकाष्टकमेतद्धि चित्तपुष्पसमर्पणम् । यस्मै तच्छान्तरूपाय पुष्पकाय नमो नमः ॥</div>
+              <div class="translit">puṣpakāṣṭakametaddhi cittapuṣpasamarpaṇam | yasmai tacchāntarūpāya puṣpakāya namo namaḥ ||</div>
+              <div class="eng"><strong>English:</strong> Salutations to पुष्पक Puṣpaka again and again, that pacified form of Energy to which is offered a flower in the form of mind, in the form of this पुष्पकाष्टक puṣpakāṣṭaka, i.e. eight verses in memory of पुष्पक Puṣpaka.</div>
+              <div class="marathi"><strong>Marathi:</strong> हे पुष्पकाष्टक म्हणजे चित्तरूपी पुष्पाचे समर्पण आहे ज्यांच्याकरिता, त्या शांत झालेल्या तेजोरूपी, पुष्पकसरांना पुन्हा पुन्हा नमस्कार.</div>
+            </div>
+          </div>
+
+          <div style="margin-top:6px; font-size:13px; color:var(--muted);">
+            <em>Presented here exactly as provided. Deep condolences to family, friends, colleagues and students.</em>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+</body>
+</html>
+

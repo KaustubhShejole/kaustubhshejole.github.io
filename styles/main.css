@@ -1,0 +1,431 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Inter, sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, lavenderblush, lavender);
+}
+
+/* Shloka/Sanskrit Text Container */
+.shloka-container {
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    font-size: 20px;
+    color: #2c3e50;
+    text-align: center;
+    padding: 20px;
+    white-space: nowrap;
+    overflow-x: auto;
+    border-bottom: 1px solid #e0e0e0;
+    letter-spacing: 0.5px;
+}
+
+.separator {
+    color: #b33939;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+/* Introduction Section */
+#start_intro {
+    text-align: right;
+    background-image: url('../images/Risingsun.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    min-height: 250px;
+}
+
+.profile-image {
+    text-align: center;
+    padding: 24px;
+    flex: 0 1 auto;
+}
+
+.profile-image img {
+    width: 200px;
+    height: auto;
+    border: 6px solid;
+    border-radius: 50%;
+}
+
+.profile-info {
+    margin-top: 20px;
+    font-family: fantasy;
+}
+
+.profile-info b {
+    font-family: cursive;
+    font-size: large;
+    color: palegoldenrod;
+}
+
+.profile-info i {
+    display: block;
+    margin-top: 10px;
+}
+
+.profile-info a {
+    color: palegoldenrod;
+    text-decoration: none;
+}
+
+.profile-info a:hover {
+    text-decoration: underline;
+}
+
+/* Container Styles */
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+#current_status {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 600px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    box-shadow: 1px 2px 4px gray;
+    border-radius: 6px;
+    margin: 9px auto;
+}
+
+#previous_btech {
+    padding: 20px;
+    align-items: center;
+}
+
+#details {
+    margin: 10px;
+    padding: 0 5px;
+}
+
+.link a {
+    color: lightgoldenrodyellow;
+    font-weight: 500;
+    text-decoration: underline;
+    word-break: break-word;
+}
+
+.outer_contain {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+    max-width: 100%;
+}
+
+.outer_contain1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 6px;
+    padding: 6px;
+}
+
+.container1 {
+    flex: 1;
+    min-width: 280px;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container1 h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-size: 1.5em;
+}
+
+.container1 h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-size: 1.3em;
+}
+
+.container1 p {
+    margin: 10px 0;
+    line-height: 1.4;
+    font-size: 0.95em;
+}
+
+/* Table Styles */
+.borderless-table {
+    border-collapse: collapse;
+    width: 100%;
+    align-self: center;
+    font-size: 0.9em;
+}
+
+.borderless-table td {
+    padding: 8px 0;
+    border: none;
+    word-break: break-word;
+}
+
+.authors {
+    font-style: italic;
+    font-weight: 600;
+}
+
+/* Publication Abstract Styles */
+.abstract {
+    display: none;
+    margin-top: 8px;
+    margin-left: 16px;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+.abstract-btn {
+    cursor: pointer;
+    color: #1a4cff;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.95em;
+}
+
+.abstract-btn:hover {
+    text-decoration: underline;
+}
+
+li {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+/* Footer/Thank You */
+.thank-you-text {
+    text-align: center;
+    font-style: italic;
+    margin: 10px;
+}
+
+/* Sanskrit Text Styling */
+.sanskrit-text {
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablets and Medium Screens */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+
+    #start_intro {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+        min-height: auto;
+        gap: 10px;
+    }
+
+    #start_intro > div:last-child {
+        margin: 0 !important;
+        padding: 15px !important;
+    }
+
+    .profile-image {
+        padding: 15px;
+    }
+
+    .profile-image img {
+        width: 150px;
+        height: auto;
+        border: 4px solid;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .container1 {
+        min-width: 260px;
+        padding: 12px;
+    }
+
+    .outer_contain {
+        gap: 12px;
+        padding: 10px;
+    }
+
+    .sanskrit-text {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .borderless-table td {
+        padding: 6px 0;
+        font-size: 0.85em;
+    }
+}
+
+/* Small Phones (max-width: 480px) */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    #start_intro {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+        min-height: auto;
+    }
+
+    #start_intro > div:last-child {
+        margin: 0 !important;
+        padding: 10px !important;
+    }
+
+    #start_intro > div:last-child > div > b:first-of-type {
+        font-size: 1.2em !important;
+    }
+
+    #start_intro > div:last-child > div > b:nth-of-type(2) {
+        font-size: 14px !important;
+    }
+
+    .profile-image {
+        padding: 10px;
+    }
+
+    .profile-image img {
+        width: 120px;
+        height: auto;
+        border: 3px solid;
+    }
+
+    .container {
+        padding: 8px;
+        margin-top: 5px !important;
+    }
+
+    .container1 {
+        min-width: 250px;
+        max-width: 100%;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .container1 h2 {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+    }
+
+    .container1 h3 {
+        font-size: 1.15em;
+        margin-bottom: 10px;
+    }
+
+    .container1 p {
+        margin: 8px 0;
+        font-size: 0.9em;
+    }
+
+    .outer_contain {
+        gap: 10px;
+        padding: 8px;
+        flex-direction: column;
+    }
+
+    .outer_contain > .container1 {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .sanskrit-text {
+        font-size: 14px;
+        padding: 6px;
+        white-space: pre-wrap;
+    }
+
+    .borderless-table {
+        font-size: 0.8em;
+    }
+
+    .borderless-table td {
+        padding: 4px 0;
+        font-size: 0.8em;
+    }
+
+    .link a {
+        display: block;
+        margin: 5px 0;
+    }
+
+    li {
+        margin-bottom: 12px;
+        font-size: 0.9em;
+    }
+
+    #details {
+        margin: 5px;
+        padding: 0;
+    }
+
+    .thank-you-text {
+        margin: 8px;
+    }
+
+    i {
+        font-size: 0.9em;
+    }
+}
+
+/* Extra Small Phones (max-width: 375px) */
+@media (max-width: 375px) {
+    body {
+        font-size: 13px;
+    }
+
+    .profile-image img {
+        width: 100px;
+        height: auto;
+    }
+
+    .container1 {
+        padding: 8px;
+        min-width: 240px;
+    }
+
+    .container1 h2 {
+        font-size: 1.2em;
+    }
+
+    .sanskrit-text {
+        font-size: 12px;
+    }
+}
+
