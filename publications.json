@@ -39,8 +39,8 @@
   "venue": "The Ninth Workshop on Technologies for Machine Translation of Low Resource Languages (LoResMT 2026) @ EACL 2026",
   "githubLink": "https://github.com/KaustubhShejole/Viram_Marathi",
   "year": 2026,
-  "type": "preprint",
-  "paperLink": "http://arxiv.org/abs/2601.09725",
+  "type": "workshop",
+  "paperLink": "https://aclanthology.org/2026.loresmt-1.13/",
   "abstract": "Neural Machine Translation (NMT) systems rely heavily on explicit punctuation cues to resolve semantic ambiguities in a source sentence. Inputting user-generated sentences, which are likely to contain missing or incorrect punctuation, results in fluent but semantically disastrous translations. This work attempts to highlight and address the problem of punctuation robustness of NMT systems through an English-to-Marathi translation. First, we introduce Viram, a human-curated diagnostic benchmark of 54 punctuation-ambiguous English-Marathi sentence pairs to stress-test existing NMT systems. Second, we evaluate two simple remediation strategies: cascade-based restore-then-translate and direct fine-tuning. Our experimental results and analysis demonstrate that both strategies yield substantial NMT performance improvements. Furthermore, we find that current Large Language Models (LLMs) exhibit relatively poorer robustness in translating such sentences than these task-specific strategies, thus necessitating further research in this area.",
   "showAbstract": true
 },
