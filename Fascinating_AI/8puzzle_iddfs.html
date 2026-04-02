@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8-Tile Puzzle Solver</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  #home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.4rem 0.9rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.15s, border-color 0.15s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  #home-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+  :root {
+    --bg: #0e0e10;
+    --surface: #18181c;
+    --surface2: #22222a;
+    --border: #2e2e38;
+    --accent: #c8f560;
+    --accent2: #7c6af5;
+    --text: #f0f0f0;
+    --muted: #6b6b7a;
+    --tile-bg: #1e1e28;
+    --tile-border: #3a3a4a;
+    --tile-text: #f0f0f0;
+    --empty-bg: #13131a;
+    --solved-accent: #60f5a8;
+  }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  header h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+
+  header p {
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .main-layout {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    align-items: start;
+    width: 100%;
+    max-width: 860px;
+  }
+
+  @media (max-width: 680px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .arrow-col { display: none; }
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+
+  .panel-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .board-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(3, 80px);
+    gap: 6px;
+  }
+
+  .tile {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background: var(--tile-bg);
+    border: 1.5px solid var(--tile-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--tile-text);
+    position: relative;
+    transition: transform 0.18s cubic-bezier(.34,1.56,.64,1), background 0.2s, border-color 0.2s;
+    user-select: none;
+  }
+
+  .tile.empty {
+    background: var(--empty-bg);
+    border-color: #1e1e28;
+  }
+
+  .tile.highlight {
+    background: #2a2a1a;
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: scale(1.06);
+  }
+
+  .tile.solved-highlight {
+    background: #142a1e;
+    border-color: var(--solved-accent);
+    color: var(--solved-accent);
+  }
+
+  .step-counter {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .step-counter span {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .arrow-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4rem;
+  }
+
+  .arrow-col svg { opacity: 0.35; }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 860px;
+    margin-top: 1.5rem;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  button {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0e0e10;
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover { background: #d4f870; transform: translateY(-1px); }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  .btn-secondary:hover { background: var(--surface2); border-color: var(--accent2); color: var(--accent2); }
+  .btn-secondary:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .speed-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 140px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+  }
+
+  .status-bar {
+    width: 100%;
+    max-width: 860px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+
+  .status-dot.solving { background: var(--accent2); animation: pulse 1s infinite; }
+  .status-dot.done { background: var(--solved-accent); }
+  .status-dot.error { background: #f56060; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .progress-row {
+    width: 100%;
+    max-width: 860px;
+    margin-top: 0.5rem;
+  }
+
+  .progress-bar-bg {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  .path-info {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 0.25rem;
+  }
+
+  .path-info span { color: var(--accent); }
+
+  .modal-backdrop {
+    display: none;
+    min-height: 420px;
+    background: rgba(0,0,0,0.72);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 860px;
+    margin-top: 1rem;
+    border-radius: 16px;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .modal-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+
+  .modal-hint {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .input-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 72px);
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .input-grid input {
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    background: var(--tile-bg);
+    border: 1.5px solid var(--tile-border);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+    -moz-appearance: textfield;
+  }
+  .input-grid input::-webkit-outer-spin-button,
+  .input-grid input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .input-grid input:focus { border-color: var(--accent2); background: #1e1e30; }
+  .input-grid input.input-blank { background: var(--empty-bg); border-color: #1e1e28; color: var(--muted); font-size: 1rem; }
+  .input-grid input.input-error { border-color: #f56060; background: #2a1a1a; }
+  .input-grid input.input-ok { border-color: var(--accent); }
+
+  .modal-validation {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    min-height: 1.2em;
+    text-align: center;
+  }
+  .modal-validation.ok { color: var(--solved-accent); }
+  .modal-validation.err { color: #f56060; }
+
+  .modal-btns { display: flex; gap: 0.75rem; justify-content: flex-end; }
+</style>
+</head>
+<body>
+
+<a href="../ai_visuals.html" id="home-btn" title="Back to AI Visuals">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
+  Home
+</a>
+<header>
+  <h1>8-Tile Puzzle</h1>
+  <p>IDDFS Solver &mdash; Animated Solution</p>
+</header>
+
+<div class="main-layout">
+  <div class="panel board-wrap">
+    <div class="panel-label">Initial State</div>
+    <div class="board" id="board-init"></div>
+    <div class="step-counter" id="step-label">Step <span id="step-num">0</span> / <span id="step-total">0</span></div>
+  </div>
+
+  <div class="arrow-col">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <path d="M6 16h20M19 9l7 7-7 7" stroke="#f0f0f0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="panel board-wrap">
+    <div class="panel-label">Goal State</div>
+    <div class="board" id="board-goal"></div>
+    <div class="step-counter" style="visibility:hidden">.</div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="btn-row">
+    <button class="btn-primary" id="btn-random">&#8635; Random Puzzle</button>
+    <button class="btn-secondary" id="btn-custom">&#9998; Set Puzzle</button>
+    <button class="btn-secondary" id="btn-solve" disabled>&#9654; Solve</button>
+    <button class="btn-secondary" id="btn-pause" disabled>&#10074;&#10074; Pause</button>
+    <button class="btn-secondary" id="btn-reset" disabled>&#8634; Reset</button>
+  </div>
+  <div class="speed-row">
+    <span>Slow</span>
+    <input type="range" id="speed-slider" min="80" max="900" value="500" step="10">
+    <span>Fast</span>
+  </div>
+</div>
+
+<div class="status-bar">
+  <div class="status-dot" id="status-dot"></div>
+  <span id="status-text">Generate a random puzzle to begin.</span>
+</div>
+
+<div class="progress-row">
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+  <div class="path-info">Solution steps: <span id="path-length">—</span></div>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <div class="modal-title">Set custom puzzle</div>
+    <div class="modal-hint">Enter digits 0–8, each used exactly once.<br>Use <strong style="color:var(--accent)">0</strong> for the blank tile.</div>
+    <div class="input-grid" id="input-grid">
+      <input type="number" min="0" max="8" maxlength="1" placeholder="·" id="ci0">
+      <input type="number" min="0" max="8" maxlength="1" placeholder="·" id="ci1">
+      <input type="number" min="0" max="8" maxlength="1" placeholder="·" id="ci2">
+      <input type="number" min="0" max="8" maxlength="1" placeholder="·" id="ci3">
+      <input type="number" min="0" max="8" maxlength="1" placeholder="·" id="ci4">
+      <input type="number" min="0" max="8" maxlength="1" placeholder="·" id="ci5">
+      <input type="number" min="0" max="8" maxlength="1" placeholder="·" id="ci6">
+      <input type="number" min="0" max="8" maxlength="1" placeholder="·" id="ci7">
+      <input type="number" min="0" max="8" maxlength="1" placeholder="·" id="ci8">
+    </div>
+    <div class="modal-validation" id="modal-val"></div>
+    <div class="modal-btns">
+      <button class="btn-secondary" id="btn-modal-cancel">Cancel</button>
+      <button class="btn-primary" id="btn-modal-confirm" disabled>Use this puzzle</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const GOAL = [1,2,3,4,5,6,7,8,0];
+
+// --- Python-faithful translation ---
+
+function arrEq(a, b) { return a.every((v,i) => v === b[i]); }
+
+// count_inversions(state)
+function countInversions(state) {
+  let inversions = 0;
+  for (let i = 0; i < state.length; i++)
+    for (let j = i + 1; j < state.length; j++)
+      if (state[i] > state[j] && state[i] !== 0 && state[j] !== 0)
+        inversions++;
+  return inversions;
+}
+
+const inversionsGoal = countInversions(GOAL);
+
+// is_solvable(state, goal_state)
+function isSolvable(state) {
+  const inv = countInversions(state);
+  return (inv % 2) === (inversionsGoal % 2);
+}
+
+// generate_random_state() + find_solvable_initial_state()
+function shuffle() {
+  let arr;
+  do {
+    arr = [0,1,2,3,4,5,6,7,8];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  } while (!isSolvable(arr) || arrEq(arr, GOAL));
+  return arr;
+}
+
+// is_goal_state(state)
+function isGoalState(state) { return arrEq(state, GOAL); }
+
+// apply_action(state, action)
+function applyAction(state, action) {
+  const ns = [...state];
+  const blankIdx = ns.indexOf(0);
+  const newIdx = blankIdx + action;
+  [ns[blankIdx], ns[newIdx]] = [ns[newIdx], ns[blankIdx]];
+  return ns;
+}
+
+// get_actions(state)
+function getActions(state) {
+  const actions = [];
+  const blankIdx = state.indexOf(0);
+  if (blankIdx - 3 >= 0)       actions.push(-3); // Up
+  if (blankIdx + 3 < 9)        actions.push(3);  // Down
+  if (blankIdx % 3 > 0)        actions.push(-1); // Left
+  if (blankIdx % 3 < 2)        actions.push(1);  // Right
+  return actions;
+}
+
+// depth_limited_dfs_optimized — returns { path, actions, duplicates } or null
+function depthLimitedDFS(state, depthLimit, expandedNodes, duplicates) {
+  if (isGoalState(state)) {
+    return { path: [state], actions: [], duplicates };
+  }
+  if (depthLimit === 0) {
+    return null;
+  }
+
+  const stateKey = state.join(',');
+  expandedNodes.set(`${stateKey}|${depthLimit}`, true);
+
+  for (const action of getActions(state)) {
+    const childState = applyAction(state, action);
+    if (isGoalState(childState)) {
+      return { path: [state, childState], actions: [action], duplicates };
+    }
+    const childKey = `${childState.join(',')}|${depthLimit - 1}`;
+    if (!expandedNodes.has(childKey)) {
+      const result = depthLimitedDFS(childState, depthLimit - 1, expandedNodes, duplicates);
+      if (result !== null) {
+        return {
+          path: [state, ...result.path],
+          actions: [action, ...result.actions],
+          duplicates: result.duplicates
+        };
+      }
+      duplicates = result === null ? duplicates : result.duplicates;
+    } else {
+      duplicates++;
+    }
+  }
+  return null;
+}
+
+// iddfs_optimized(initial_state)
+function iddfs(initialState) {
+  let depthLimit = 0;
+  let totalDuplicates = 0;
+  while (true) {
+    const expandedNodes = new Map();
+    const result = depthLimitedDFS(initialState, depthLimit, expandedNodes, totalDuplicates);
+    if (result !== null) {
+      console.log('Expanded nodes stored:', expandedNodes.size);
+      console.log('Duplicate nodes:', result.duplicates);
+      return { path: result.path, actions: result.actions };
+    }
+    console.log('Depth limit tried:', depthLimit);
+    depthLimit++;
+    if (depthLimit > 80) return null; // safety cap
+  }
+}
+
+let currentState = null;
+let solutionPath = [];
+let animTimer = null;
+let stepIdx = 0;
+let isPaused = false;
+
+const boardInit = document.getElementById('board-init');
+const boardGoal = document.getElementById('board-goal');
+const btnRandom = document.getElementById('btn-random');
+const btnSolve = document.getElementById('btn-solve');
+const btnPause = document.getElementById('btn-pause');
+const btnReset = document.getElementById('btn-reset');
+const statusText = document.getElementById('status-text');
+const statusDot = document.getElementById('status-dot');
+const stepNum = document.getElementById('step-num');
+const stepTotal = document.getElementById('step-total');
+const progressFill = document.getElementById('progress-fill');
+const pathLength = document.getElementById('path-length');
+const speedSlider = document.getElementById('speed-slider');
+
+function getDelay() {
+  const v = parseInt(speedSlider.value);
+  return 980 - v;
+}
+
+function setStatus(msg, mode='idle') {
+  statusText.textContent = msg;
+  statusDot.className = 'status-dot' + (mode !== 'idle' ? ` ${mode}` : '');
+}
+
+function renderBoard(container, state, highlightIdx = -1, solved = false) {
+  container.innerHTML = '';
+  state.forEach((val, idx) => {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    if (val === 0) {
+      tile.classList.add('empty');
+    } else {
+      tile.textContent = val;
+      if (idx === highlightIdx) tile.classList.add(solved ? 'solved-highlight' : 'highlight');
+      else if (solved && val !== 0) tile.classList.add('solved-highlight');
+    }
+    container.appendChild(tile);
+  });
+}
+
+function renderGoal() {
+  renderBoard(boardGoal, GOAL, -1, true);
+}
+
+function stopAnimation() {
+  if (animTimer) { clearTimeout(animTimer); animTimer = null; }
+}
+
+function resetUI() {
+  stopAnimation();
+  solutionPath = [];
+  stepIdx = 0;
+  isPaused = false;
+  btnPause.textContent = '⏸ Pause';
+  btnSolve.disabled = !currentState;
+  btnPause.disabled = true;
+  btnReset.disabled = true;
+  progressFill.style.width = '0%';
+  pathLength.textContent = '—';
+  stepNum.textContent = '0';
+  stepTotal.textContent = '0';
+}
+
+function startAnimation() {
+  if (stepIdx >= solutionPath.length) {
+    setStatus(`Solved in ${solutionPath.length - 1} moves!`, 'done');
+    renderBoard(boardInit, GOAL, -1, true);
+    btnPause.disabled = true;
+    btnReset.disabled = false;
+    return;
+  }
+
+  const state = solutionPath[stepIdx];
+  const prevState = stepIdx > 0 ? solutionPath[stepIdx - 1] : null;
+  let movedTileIdx = -1;
+
+  if (prevState) {
+    for (let i = 0; i < 9; i++) {
+      if (state[i] !== prevState[i] && state[i] !== 0) {
+        movedTileIdx = i;
+        break;
+      }
+    }
+  }
+
+  renderBoard(boardInit, state, movedTileIdx, false);
+  stepNum.textContent = stepIdx;
+  const pct = (stepIdx / (solutionPath.length - 1)) * 100;
+  progressFill.style.width = pct.toFixed(1) + '%';
+  setStatus(`Animating step ${stepIdx} of ${solutionPath.length - 1}...`, 'solving');
+
+  stepIdx++;
+  if (!isPaused) {
+    animTimer = setTimeout(startAnimation, getDelay());
+  }
+}
+
+btnRandom.addEventListener('click', () => {
+  stopAnimation();
+  resetUI();
+  currentState = shuffle();
+  renderBoard(boardInit, currentState);
+  setStatus('Puzzle generated. Click Solve to find solution.', 'idle');
+  btnSolve.disabled = false;
+  btnReset.disabled = false;
+});
+
+btnSolve.addEventListener('click', () => {
+  if (!currentState) return;
+  stopAnimation();
+  solutionPath = [];
+  stepIdx = 0;
+  btnSolve.disabled = true;
+  btnPause.disabled = false;
+  btnReset.disabled = false;
+  setStatus('Solving with IDDFS (depth-limited DFS)...', 'solving');
+
+  setTimeout(() => {
+    const result = iddfs(currentState);
+    if (!result) {
+      setStatus('No solution found within depth limit.', 'error');
+      return;
+    }
+    solutionPath = result.path;
+    stepTotal.textContent = solutionPath.length - 1;
+    pathLength.textContent = solutionPath.length - 1;
+    setStatus(`Solution found: ${solutionPath.length - 1} moves. Animating...`, 'solving');
+    startAnimation();
+  }, 30);
+});
+
+btnPause.addEventListener('click', () => {
+  if (!isPaused) {
+    isPaused = true;
+    stopAnimation();
+    btnPause.textContent = '▶ Resume';
+    setStatus(`Paused at step ${stepIdx} of ${solutionPath.length - 1}.`, 'idle');
+  } else {
+    isPaused = false;
+    btnPause.textContent = '⏸ Pause';
+    startAnimation();
+  }
+});
+
+btnReset.addEventListener('click', () => {
+  stopAnimation();
+  if (currentState) {
+    resetUI();
+    renderBoard(boardInit, currentState);
+    setStatus('Reset to initial state. Click Solve to run again.', 'idle');
+    btnReset.disabled = false;
+  }
+});
+
+// ── Custom puzzle modal ──
+const modalBackdrop = document.getElementById('modal-backdrop');
+const modalVal      = document.getElementById('modal-val');
+const btnModalConfirm = document.getElementById('btn-modal-confirm');
+const btnModalCancel  = document.getElementById('btn-modal-cancel');
+const btnCustom       = document.getElementById('btn-custom');
+const ciInputs = Array.from({length: 9}, (_, i) => document.getElementById(`ci${i}`));
+
+function openModal() {
+  ciInputs.forEach(inp => { inp.value = ''; inp.className = ''; });
+  modalVal.textContent = '';
+  modalVal.className = 'modal-validation';
+  btnModalConfirm.disabled = true;
+  modalBackdrop.classList.add('open');
+  ciInputs[0].focus();
+}
+
+function closeModal() { modalBackdrop.classList.remove('open'); }
+
+function validateInputs() {
+  const vals = ciInputs.map(inp => inp.value.trim());
+  const filled = vals.filter(v => v !== '');
+  const nums = vals.map(v => v === '' ? null : parseInt(v));
+
+  // Reset styles
+  ciInputs.forEach((inp, i) => {
+    inp.classList.remove('input-error', 'input-ok', 'input-blank');
+    if (nums[i] === 0) inp.classList.add('input-blank');
+  });
+
+  if (filled.length < 9) {
+    modalVal.textContent = `Fill all 9 cells (${9 - filled.length} remaining).`;
+    modalVal.className = 'modal-validation';
+    btnModalConfirm.disabled = true;
+    return;
+  }
+
+  // Check range 0-8
+  const outOfRange = nums.some(n => n < 0 || n > 8 || isNaN(n));
+  if (outOfRange) {
+    nums.forEach((n, i) => { if (isNaN(n) || n < 0 || n > 8) ciInputs[i].classList.add('input-error'); });
+    modalVal.textContent = 'Each cell must be a digit 0–8.';
+    modalVal.className = 'modal-validation err';
+    btnModalConfirm.disabled = true;
+    return;
+  }
+
+  // Check duplicates
+  const seen = new Set();
+  let hasDupe = false;
+  nums.forEach((n, i) => {
+    if (seen.has(n)) { ciInputs[i].classList.add('input-error'); hasDupe = true; }
+    else seen.add(n);
+  });
+  if (hasDupe) {
+    modalVal.textContent = 'Duplicate values found — each digit 0–8 must appear exactly once.';
+    modalVal.className = 'modal-validation err';
+    btnModalConfirm.disabled = true;
+    return;
+  }
+
+  // Check if it equals goal
+  if (arrEq(nums, GOAL)) {
+    modalVal.textContent = 'This is already the goal state!';
+    modalVal.className = 'modal-validation err';
+    btnModalConfirm.disabled = true;
+    return;
+  }
+
+  // Check solvability
+  if (!isSolvable(nums)) {
+    ciInputs.forEach(inp => inp.classList.add('input-error'));
+    modalVal.textContent = '✕ This configuration is NOT solvable — the number of inversions has wrong parity.';
+    modalVal.className = 'modal-validation err';
+    btnModalConfirm.disabled = true;
+    return;
+  }
+
+  ciInputs.forEach(inp => { if (!inp.classList.contains('input-blank')) inp.classList.add('input-ok'); });
+  modalVal.textContent = '✓ Valid and solvable!';
+  modalVal.className = 'modal-validation ok';
+  btnModalConfirm.disabled = false;
+}
+
+ciInputs.forEach((inp, i) => {
+  inp.addEventListener('input', () => {
+    // Clamp to single digit
+    if (inp.value.length > 1) inp.value = inp.value.slice(-1);
+    if (inp.value === '0') inp.classList.add('input-blank');
+    else inp.classList.remove('input-blank');
+    validateInputs();
+    // Auto-advance focus
+    if (inp.value !== '' && i < 8) ciInputs[i + 1].focus();
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && inp.value === '' && i > 0) ciInputs[i - 1].focus();
+    if (e.key === 'ArrowRight' && i < 8) ciInputs[i + 1].focus();
+    if (e.key === 'ArrowLeft'  && i > 0) ciInputs[i - 1].focus();
+    if (e.key === 'ArrowDown'  && i + 3 < 9) ciInputs[i + 3].focus();
+    if (e.key === 'ArrowUp'    && i - 3 >= 0) ciInputs[i - 3].focus();
+  });
+});
+
+btnCustom.addEventListener('click', () => { stopAnimation(); openModal(); });
+btnModalCancel.addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', e => { if (e.target === modalBackdrop) closeModal(); });
+
+btnModalConfirm.addEventListener('click', () => {
+  const nums = ciInputs.map(inp => parseInt(inp.value.trim()));
+  closeModal();
+  stopAnimation();
+  resetUI();
+  currentState = nums;
+  renderBoard(boardInit, currentState);
+  setStatus('Custom puzzle set. Click Solve to find solution.', 'idle');
+  btnSolve.disabled = false;
+  btnReset.disabled = false;
+});
+
+renderGoal();
+renderBoard(boardInit, [0,0,0,0,0,0,0,0,0].map(() => 0));
+setStatus('Generate a random puzzle to begin.');
+</script>
+</body>
+</html>
