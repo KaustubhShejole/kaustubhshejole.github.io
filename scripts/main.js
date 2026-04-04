@@ -22,6 +22,7 @@ ${authorsHTML}.<br>
 <span>${pub.venue}</span><br>
 <a target="_blank" href="${pub.paperLink}">[Paper]</a>
 ${pub.githubLink ? `<a target="_blank" href="${pub.githubLink}">[GitHub]</a>` : ""}
+${pub.videoLink ? `<a target="_blank" href="${pub.videoLink}">[Video]</a>` : ""}
 ${pub.showAbstract ? `<button class="abstract-btn" data-target="${abstractId}">[Abstract]</button>` : ""}
 <div id="${abstractId}" class="abstract">${pub.abstract}</div>
 `;
