@@ -8,7 +8,7 @@
     ],
     "venue": "Findings of the Association for Computational Linguistics: EMNLP 2025",
     "year": 2025,
-    "type": "conference",
+    "type": "findings",
     "paperLink": "https://aclanthology.org/2025.findings-emnlp.216",
     "githubLink": "https://github.com/KaustubhShejole/StereoDetect",
     "abstract": "Stereotypes are known to have very harmful effects, making their detection critically important. However, current research predominantly focuses on detecting and evaluating stereotypical biases, leaving the study of stereotypes in its early stages. Our study revealed that many works have failed to clearly distinguish between stereotypes and stereotypical biases, which has significantly slowed progress in advancing research in this area. Stereotype and Anti-stereotype detection is a problem that requires social knowledge; hence, it is one of the most difficult areas in Responsible AI. This work investigates this task, where we propose a five-tuple definition and provide precise terminologies disentangling stereotypes, anti‐stereotypes, stereotypical bias, and general bias. We provide a conceptual framework grounded in social psychology for reliable detection. We identify key shortcomings in existing benchmarks for this task of stereotype and anti-stereotype detection. To address these gaps, we developed *StereoDetect*, a well curated, definition‐aligned benchmark dataset designed for this task. We show that language models with fewer than 10 billion parameters frequently misclassify anti‐stereotypes and fail to recognize neutral overgeneralizations. We demonstrate StereoDetect’s effectiveness through multiple qualitative and quantitative comparisons with existing benchmarks and models fine-tuned on them.",
@@ -21,9 +21,9 @@
       "Kaustubh Shivshankar Shejole",
       "Pushpak Bhattacharyya"
     ],
-    "venue": "Preprint (under review)",
+    "venue": "To appear in the Findings of the Association for Computational Linguistics, San Diego, California, United States July 2-7, 2026",
     "year": 2026,
-    "type": "preprint",
+    "type": "findings",
     "paperLink": "https://www.preprints.org/manuscript/202601.0815",
     "abstract": "Stereotypes are very harmful social constructs shaping human perception and behavior. Recent work shows that large language models (LLMs) may inherit and amplify such social harms. However, most existing research often focuses on stereotypical biases and overlooks stereotypes and the rich social-psychological literature on them, resulting in resource wastage and slowed progress in stereotype research. We argue that meaningful progress in mitigating stereotypes in LLMs requires tighter integration between social psychology and computational research. To address this gap, we review core social-psychological theories and frameworks and analyze their computational operationalization, highlighting substantial open opportunities. We also analyze computational progress across media narratives, body imaging, and multilingual, multicultural, and multimodal contexts, identifying key gaps and limitations in each domain. We also present a unified analysis of challenges in stereotype research. We further discuss implications for responsible AI, highlighting stereotypes as a root source of downstream harms, and briefly examine the limitations of current mitigation approaches along with potential improvements via explainability and interpretability. We frame stereotypes in AI as socio-technical phenomena and urge further research in responsible AI, informed by the perspectives and future directions presented in this paper.",
     "showAbstract": true
@@ -53,9 +53,9 @@
       "Kaustubh Shivshankar Shejole",
       "Pushpak Bhattacharyya"
     ],
-    "venue": "Preprint (under review)",
+    "venue": "To appear in the Proceedings of the The 64th Annual Meeting of the Association for Computational Linguistics, San Diego, California, United States July 2-7, 2026",
     "year": 2026,
-    "type": "preprint",
+    "type": "conference",
     "paperLink": "https://doi.org/10.36227/techrxiv.176705261.19061593/v1",
 
 	"abstract": "Automatic radiology report generation (RRG) has emerged as a promising approach to reduce clinicians' workload, yet existing systems are vulnerable to biases induced by spurious correlations across data, models, and evaluation pipelines. Such biases raise serious fairness concerns and may adversely affect patient care, making their mitigation critical in clinical settings. Leveraging causal inference to identify true cause-effect relationships can mitigate many biases and yield fair, reliable systems with clinically meaningful outputs. Existing surveys on RRG primarily emphasize deep learning approaches while overlooking the critical role of causality. This survey addresses this gap by analyzing bias across the RRG pipeline, formalizing RRG as a causal modeling problem, and reviewing representative causal techniques from the literature. Based on the level of intervention, we organize existing mitigation strategies into a three-tier taxonomy. We further examine commonly used public medical imaging datasets and evaluation metrics through a causal lens, revealing their biases and limitations in capturing causal alignment and clinical fidelity. To address these limitations, we advocate broader demographic coverage and causal-aware evaluation metrics to improve fairness and reliability, and identify important directions for future work.",
