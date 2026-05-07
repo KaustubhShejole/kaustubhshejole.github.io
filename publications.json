@@ -1,5 +1,21 @@
 [
   {
+    "id": "icml-irt-2026",
+    "title": "An Efficient Joint Learning Approach for Item Response Theory",
+    "authors": [
+      "Tanish Agarwal*",
+      "Kaustubh Shivshankar Shejole*",
+      "Arpit Agarwal"
+    ],
+    "venue": "To appear in Forty-Third International Conference on Machine Learning (ICML 2026), Seoul, South Korea, July 6th - 11th, 2026",
+    "year": 2026,
+    "type": "conference",
+    "paperLink": "",
+
+	  "abstract": "",
+    "showAbstract": true
+  },
+  {
     "id": "stereodetect-emnlp-2025",
     "title": "StereoDetect: Detecting Stereotypes and Anti-stereotypes the Correct Way Using Social Psychological Underpinnings",
     "authors": [
