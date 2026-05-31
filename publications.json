@@ -1,22 +1,5 @@
 [
   {
-    "id": "icml-irt-2026",
-    "title": "An Efficient Joint Learning Approach for Item Response Theory",
-    "authors": [
-      "Tanish Agarwal*",
-      "Kaustubh Shivshankar Shejole*",
-      "Arpit Agarwal"
-    ],
-    "venue": "To appear in Forty-Third International Conference on Machine Learning (ICML 2026), Seoul, South Korea, July 6th - 11th, 2026",
-    "year": 2026,
-    "type": "conference",
-    "paperLink": "",
-
-	  "abstract": "Will update soon.",
-    "showAbstract": true
-  },
-
-  {
     "id": "uai-crowd-2026",
     "title": "Finding the Signal in the Spam: Jointly Learning Rewards and Worker Reliability from Pairwise Comparisons",
     "authors": [
@@ -26,6 +9,23 @@
       "Avishek Ghosh"
     ],
     "venue": "Forty-Second Annual Conference on Uncertainty in Artificial Intelligence, Amsterdam, Netherlands, August 17th - 21st, 2026",
+    "year": 2026,
+    "type": "conference",
+    "paperLink": "",
+
+	  "abstract": "Will update soon.",
+    "showAbstract": true
+  },
+  
+  {
+    "id": "icml-irt-2026",
+    "title": "An Efficient Joint Learning Approach for Item Response Theory",
+    "authors": [
+      "Tanish Agarwal*",
+      "Kaustubh Shivshankar Shejole*",
+      "Arpit Agarwal"
+    ],
+    "venue": "To appear in Forty-Third International Conference on Machine Learning (ICML 2026), Seoul, South Korea, July 6th - 11th, 2026",
     "year": 2026,
     "type": "conference",
     "paperLink": "",
