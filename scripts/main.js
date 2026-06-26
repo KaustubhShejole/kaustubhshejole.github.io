@@ -56,6 +56,7 @@ fetch("accomplishments.json")
 
     const sectionTitles = {
         reviewer: "Reviewer",
+        ethics_reviewer: "Ethics Reviewer",
         award: "Awards",
         publication: "Publications",
         talk: "Talks",
