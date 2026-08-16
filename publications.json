@@ -8,10 +8,11 @@
       "Arpit Agarwal",
       "Avishek Ghosh"
     ],
-    "venue": "To appear in Forty-Second Annual Conference on Uncertainty in Artificial Intelligence, Amsterdam, Netherlands, August 17th - 21st, 2026",
+    "venue": "In Proceedings of the 42nd Annual Conference on Uncertainty in Artificial Intelligence, Amsterdam, Netherlands, August 17th - 21st, 2026",
     "year": 2026,
     "type": "conference",
-    "paperLink": "",
+    "paperLink": "https://proceedings.mlr.press/v337/shejole26a.html",
+    "arxivLink": "https://arxiv.org/abs/2608.10045",
     "posterLink": "./posters/UAI_2026_poster.pdf",
 	  "abstract": "Will update soon.",
     "showAbstract": true
@@ -30,8 +31,8 @@
     "type": "conference",
     "paperLink": "https://icml.cc/virtual/2026/poster/62728",
     "posterLink": "./posters/icml_2026_irt.pdf",
-
-	  "abstract": "Will update soon.",
+    "githubLink": "https://github.com/KaustubhShejole/BoRa_EM",
+	  "abstract": "The problem of learning from pairwise comparisons has been widely studied across many domains such as recommendation systems, social choice, and more recently, fine-tuning large language models. In this problem, the goal is to learn item rewards based on pairwise comparisons between them. In many scenarios, these comparisons are elicited from crowdworkers using platforms such as Amazon Mechanical Turk, Scale AI, etc. However, crowdworkers are often unreliable due to limited domain knowledge or revenue-maximizing (spamming) behavior. In this work, our goal is to understand whether worker reliability (competency) can be learned jointly with item rewards. To this end, we adopt the Boltzmann-rational model for pairwise comparisons, which extends the Bradley-Terry-Luce model by incorporating worker competencies. We derive an EM-based algorithm for learning under this model by introducing Polya-Gamma latent variables to transform the logistic likelihood into a conditionally Gaussian form, enabling tractable optimization and leading to a simplified Q function in the E-step of the algorithm. This technique allows us to reduce our formulation to a matrix sensing problem, using which we establish theoretical convergence guarantees for our algorithm. We conduct extensive experiments on real-world and synthetic datasets. These experiments demonstrate the advantages of using our algorithm over several baselines and confirm its strong robustness to both spammers and adversarial workers, highlighting its practical effectiveness in realistic crowdsourcing and reward learning settings.",
     "showAbstract": false
   },
   
