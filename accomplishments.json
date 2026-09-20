@@ -1,16 +1,22 @@
 [
   {
-    "class": "reviewer",
-    "id": "neurips-2026",
-    "venue": "The Fortieth Annual Conference on Neural Information Processing Systems (NeurIPS 2026)",
-    "year": 2026,
-    "type": "conference"
+    "class":"fellowship",
+    "id":"tcs_research_fellowship_cycle_20",
+    "venue": "TSelected and Accepted the TCS Research Fellowship Cycle 20"
   },
   {
-    "class": "ethics_reviewer",
+    "class":"fellowship",
+    "id":"google_phd_fellowship_2026",
+    "venue": "Selected for the Google PhD Fellowship 2026 (Declined due to conflicting commitments)"
+  },
+  {
+    "class": "reviewer and ethics_reviewer",
     "id": "neurips-2026",
-    "venue": "The Fortieth Annual Conference on Neural Information Processing Systems (NeurIPS 2026)",
-    "year": 2026,
-    "type": "conference"
+    "venue": "NeurIPS 2026, reviewed 5 submissions"
+  },
+  {
+    "class": "reviewer, secondary reviewer and emergency reviewer",
+    "id": "August ARR 2026",
+    "venue": "August ARR 2026. reviewed 9 submissions"
   }
 ]
