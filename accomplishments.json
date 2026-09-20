@@ -1,22 +1,30 @@
 [
   {
-    "class":"fellowship",
-    "id":"tcs_research_fellowship_cycle_20",
-    "venue": "Selected and Accepted the TCS Research Fellowship Cycle 20"
+    "class": "fellowship",
+    "id": "tcs_research_fellowship_cycle_20",
+    "title": "TCS Research Fellowship",
+    "description": "Selected and Accepted for the TCS Research Fellowship Cycle 20",
+    "year": 2026
   },
   {
-    "class":"fellowship",
-    "id":"google_phd_fellowship_2026",
-    "venue": "Selected for the Google PhD Fellowship 2026 (Declined due to conflicting commitments)"
+    "class": "fellowship",
+    "id": "google_phd_fellowship_2026",
+    "title": "Google PhD Fellowship",
+    "description": "Selected for the Google PhD Fellowship 2026 (Declined due to conflicting commitments)",
+    "year": 2026
   },
   {
-    "class": "reviewer and ethics_reviewer",
+    "class": "reviewer",
     "id": "neurips-2026",
-    "venue": "NeurIPS 2026, reviewed 5 submissions"
+    "title": "NeurIPS 2026",
+    "description": "Reviewed 5 submissions. Also served as an ethics reviewer.",
+    "year": 2026
   },
   {
-    "class": "reviewer, secondary reviewer and emergency reviewer",
-    "id": "August ARR 2026",
-    "venue": "August ARR 2026. reviewed 9 submissions"
+    "class": "reviewer",
+    "id": "august-arr-2026",
+    "title": "August ARR 2026",
+    "description": "Reviewed 9 submissions. Also served as a secondary reviewer and an emergency reviewer.",
+    "year": 2026
   }
 ]
