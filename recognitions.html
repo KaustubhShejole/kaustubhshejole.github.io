@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recognition Moments</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="min-h-screen font-sans">
+
+    <header class="py-8 text-center bg-white shadow-md border-b border-gray-200">
+        <h1 class="text-4xl font-bold tracking-wider" style="color: #2c3e50;">Recognition Moments</h1>
+        <p class="text-gray-600 mt-2">Memorable achievements and accolades</p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <div id="gallery-grid" class="flex flex-col items-center gap-8">
+            <!-- Gallery cards will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const gridContainer = document.getElementById("gallery-grid");
+
+            try {
+                const response = await fetch("recognition_moments.json");
+                if (!response.ok) {
+                    throw new Error("Failed to load recognition_moments.json");
+                }
+                const moments = await response.json();
+
+                if (moments.length === 0) {
+                    gridContainer.innerHTML = `<p class="text-center text-gray-600">No recognition moments found.</p>`;
+                    return;
+                }
+
+                moments.forEach(item => {
+                    const card = document.createElement("div");
+                    card.className = "bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col items-center w-[80%] p-6";
+
+                    card.innerHTML = `
+                        <div class="w-full overflow-hidden bg-gray-100 rounded-md flex justify-center items-center mb-4">
+                            <!-- Image width set to 80% here -->
+                            <img src="${item.filepath}" alt="${item["image description"]}" class="w-[80%] h-auto object-contain transition duration-500 hover:scale-102">
+                        </div>
+                        <div class="w-full text-center">
+                            <p class="text-base text-gray-700 font-medium">${item["image description"]}</p>
+                        </div>
+                    `;
+
+                    gridContainer.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error loading gallery data:", error);
+                gridContainer.innerHTML = `<p class="text-center text-red-600">Could not load gallery images. Make sure recognition_moments.json is in the same directory and served via a local server.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
