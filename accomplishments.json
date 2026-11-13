@@ -33,5 +33,19 @@
     "title": "August ARR 2026",
     "description": "Reviewed 9 submissions. Also served as a secondary reviewer and an emergency reviewer.",
     "year": 2026
+  },
+  {
+    "class": "reviewer",
+    "id": "aistats-2027",
+    "title": "AISTATS 2027",
+    "description": "Reviewed 4 submissions.",
+    "year": 2026
+  },
+  {
+    "class": "reviewer",
+    "id": "october-arr-2026",
+    "title": "October ARR 2026",
+    "description": "Reviewed 5 submissions.",
+    "year": 2026
   }
 ]
